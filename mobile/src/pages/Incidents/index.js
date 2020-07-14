@@ -12,10 +12,19 @@ export default function Incidents() {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    
+
+
+    
 
     function navigateToDetail(incident) {
         navigation.navigate('Detail', { incident });
     }
+
+    function navigateToOngPage(incident) {
+        navigation.navigate('OngPage', { incident });
+    }
+
 
     async function loadIncidents(){
         if (loading) {
@@ -65,7 +74,14 @@ export default function Incidents() {
                 renderItem={({ item: incident }) => (
                 <View style={styles.incident}>
                     <Text style={styles.incidentProperty}>ONG:</Text>
-                    <Text style={styles.incidentValue}>{incident.name}</Text>
+
+                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToOngPage(incident)}
+                    >
+                        <Text style={styles.incidentValue}>{incident.name}</Text>
+                        
+                    </TouchableOpacity>
+
+                    
 
                     <Text style={styles.incidentProperty}>CASO:</Text>
                     <Text style={styles.incidentValue}>{incident.title}</Text>
