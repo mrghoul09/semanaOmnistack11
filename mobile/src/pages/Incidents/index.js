@@ -17,12 +17,14 @@ export default function Incidents() {
 
     
 
-    function navigateToDetail(incident) {
-        navigation.navigate('Detail', { incident });
+    function navigateToDetail(incidente) {
+        navigation.navigate('Detail', { incidente });
     }
 
-    function navigateToOngPage(incident) {
-        navigation.navigate('OngPage', { incident });
+    function navigateToOngPage(incidente) {
+        
+        navigation.navigate('OngPage', { incidente });
+        
     }
 
 
@@ -48,6 +50,8 @@ export default function Incidents() {
 
     }
 
+    
+
     useEffect(() => {
         loadIncidents();
     }, []);
@@ -67,33 +71,33 @@ export default function Incidents() {
             <FlatList
                 data={incidents}
                 style={styles.incidentlist}
-                keyExtractor={ incident => String(incident.id)}
+                keyExtractor={ incidente => String(incidente.id)}
                 showsVerticalScrollIndicator={false}
                 onEndReached={loadIncidents}
                 onEndReachedThreshold={0.2}
-                renderItem={({ item: incident }) => (
+                renderItem={({ item: incidente }) => (
                 <View style={styles.incident}>
                     <Text style={styles.incidentProperty}>ONG:</Text>
 
-                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToOngPage(incident)}
+                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToOngPage(incidente)}
                     >
-                        <Text style={styles.incidentValue}>{incident.name}</Text>
+                        <Text style={styles.incidentOng}>{incidente.name}</Text>
                         
                     </TouchableOpacity>
 
                     
 
                     <Text style={styles.incidentProperty}>CASO:</Text>
-                    <Text style={styles.incidentValue}>{incident.title}</Text>
+                    <Text style={styles.incidentValue}>{incidente.title}</Text>
 
                     <Text style={styles.incidentProperty}>VALOR:</Text>
                     <Text style={styles.incidentValue}>{Intl.NumberFormat('pt-BR', { 
                         style: 'currency', 
                         currency: 'BRL' 
-                        }).format(incident.value)}
+                        }).format(incidente.value)}
                     </Text>
 
-                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToDetail(incident)}
+                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToDetail(incidente)}
                     >
                         <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                         <Feather name="arrow-right" size={16} color="#E02041" />

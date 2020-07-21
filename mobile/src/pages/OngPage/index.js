@@ -11,35 +11,36 @@ import api from '../../services/api';
 
 export default function OngPage() {
     const route = useRoute();
-    const incident = route.params.incident;
     const navigation = useNavigation();
-    const [incidents, setIncidents] = useState([]);
+    const [incidents, setProfile] = useState([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const ong = api.get('ongs');
-    
+    const incidente = route.params.incidente;
+    const incident =  route.params.incidente;
+
+    incidente.ong_id = incidente.ong_id;
         
-    function navigateToDetail(incident) {
-        navigation.navigate('Detail', { incident });
+    function navigateToDetail_ong(incidente) {
+        navigation.navigate('Detail_ong', { incidente, incident });
     }
 
     function navigateBack() {
         navigation.goBack()
+        
     }
 
     function sendMail() {
         MailComposer.composeAsync({
-            subject: `Herói do caso: ${incident.title}`,
-            recipients: [incident.email],
+            recipients: [incidente.email],
         })
     }
 
     function sendWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=${incident.whatsapp}`);
+        Linking.openURL(`whatsapp://send?phone=${incidente.whatsapp}`);
     }
 
-    async function loadIncidents(){
+    async function loadProfile(){
         if (loading) {
             return;
         }
@@ -50,81 +51,85 @@ export default function OngPage() {
 
         setLoading(true);
 
-        const response = await api.get('incidents', {
-            params: { page }
+        const response = await api.get('profile', {
+            params: { page },
+            headers: { authorization: incidente.ong_id },
+            
         });
         
-        setIncidents([...incidents, ...response.data]);
+        
+        setProfile([...incidents, ...response.data])
         setTotal(response.headers['x-total-count']);
         setPage(page + 1);
         setLoading(false);
-
+        
+        
     }
 
-
     useEffect(() => {
-        loadIncidents();
+        loadProfile();
     }, []);
 
+    
+
 return(
-<View >
         
-    <View style={styles.header}>
+<View style={styles.container}>
+        <View style={styles.header}>
             <TouchableOpacity style={styles.back} onPress={navigateBack}>
                 <Feather name='arrow-left' size={20} color='#FFF' />
             </TouchableOpacity>
-            <Text style={styles.ongTitle}>{incident.name}</Text>
-    </View>
+            <Text style={styles.ongTitle}>{incidente.name}</Text>
+        </View>
 
-    <View style={styles.container}>  
+<View style={styles.containera}>  
 
-        <TouchableOpacity style={styles.Touchable}> 
-            <Image style={styles.map} source={map} />
-            <Text style={styles.endereco}>{incident.city}/{incident.uf}</Text>
-        </TouchableOpacity>
-        
-    </View>
+    
+        <Image style={styles.map} source={map} />
+        <Text style={styles.endereco}>{incidente.city}/{incidente.uf}</Text>
+   
 
-    <View style={styles.containerbottom}>  
+</View>
 
-        <TouchableOpacity style={styles.Touchablewhats} onPress={sendWhatsapp}>
-            <Image style={styles.whats} source={whats} />
-            <Text style={styles.whatsapp}>{incident.whatsapp}</Text>
-        </TouchableOpacity>
+<View style={styles.containerb}>
 
-        <TouchableOpacity style={styles.Touchableemail} onPress={sendMail} >
-            <Image style={styles.email} source={email} />
-            <Text style={styles.emails}>{incident.email}</Text>
-        </TouchableOpacity>
-        
-    </View>
+    <TouchableOpacity style={styles.Touchablewhats} onPress={sendWhatsapp}>
+        <Image style={styles.whats} source={whats} />
+        <Text style={styles.whatsapp}>{incidente.whatsapp}</Text>
+    </TouchableOpacity>
 
-    <Text style={styles.casos}>Casos cadastrados:</Text>
+    <TouchableOpacity style={styles.Touchableemail} onPress={sendMail} >
+        <Image style={styles.email} source={email} />
+        <Text style={styles.emails}>{incidente.email}</Text>
+    </TouchableOpacity>
+
+</View>
+            <Text style={styles.title}>Casos cadastrados:</Text>
+            
+
 
     <FlatList
-                
+                data={incidents}
+                showsVerticalScrollIndicator={false}
                 style={styles.incidentlist}
                 keyExtractor={ item => String(item.id)}
-                showsVerticalScrollIndicator={false}
-                onEndReached={loadIncidents}
-                onEndReachedThreshold={0.4}
-                renderItem={({ item }) => (
+                onEndReached={loadProfile}
+                onEndReachedThreshold={0.2}
+                renderItem={({ item: incident }) => (
                 <View style={styles.incident}>
-                    <Text style={styles.incidentProperty}>ONG:</Text>
-
-                        <Text style={styles.incidentValue}>{item.name}</Text>
+                    
                         
                     <Text style={styles.incidentProperty}>CASO:</Text>
-                    <Text style={styles.incidentValue}>{item.title}</Text>
+                    <Text style={styles.incidentValue}>{incident.title}</Text>
 
                     <Text style={styles.incidentProperty}>VALOR:</Text>
                     <Text style={styles.incidentValue}>{Intl.NumberFormat('pt-BR', { 
                         style: 'currency', 
                         currency: 'BRL' 
-                        }).format(item.value)}
+                        }).format(incident.value)}
                     </Text>
 
-                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToDetail(item)}
+                    <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToDetail_ong(incident)}
                     >
                         <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
                         <Feather name="arrow-right" size={16} color="#E02041" />

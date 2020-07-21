@@ -61,6 +61,14 @@ export default StyleSheet.create({
          color: '#737380'
      },
 
+     incidentOng: {
+        marginTop: 8,
+        fontSize: 15,
+        marginBottom: 24,
+        color: '#737380',
+        textDecorationLine: 'underline'
+    },
+
      detailsButton: {
          flexDirection: 'row',
          justifyContent: 'space-between',

@@ -9,7 +9,7 @@ import * as MailComposer from 'expo-mail-composer';
 export default function Detail() {
     const navigation = useNavigation();
     const route = useRoute();
-    
+    const incident = route.params.incident;
     const incidente = route.params.incidente;
     const message = `Olá ${incidente.name}, estou entrando em contato pois gostaria de ajudar no caso "${incidente.title}" com o valor de ${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incidente.value)}`;
         
@@ -21,13 +21,13 @@ export default function Detail() {
     function sendMail() {
         MailComposer.composeAsync({
             subject: `Herói do caso: ${incidente.title}`,
-            recipients: [incidente.email],
+            recipients: [incident.email],
             body: message,
         })
     }
 
     function sendWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=${incidente.whatsapp}&text=${message}`);
+        Linking.openURL(`whatsapp://send?phone=${incident.whatsapp}&text=${message}`);
     }
 
     return(
@@ -43,7 +43,7 @@ export default function Detail() {
 
             <View style={styles.incident}>
             <Text style={[styles.incidentProperty, { marginTop: 0 }]}>ONG:</Text>
-                    <Text style={styles.incidentValue}>{incidente.name} de {incidente.city}/{incidente.uf}</Text>
+                    <Text style={styles.incidentValue}>{incidente.name} de {incident.city}/{incident.uf}</Text>
 
                     <Text style={styles.incidentProperty}>CASO:</Text>
                     <Text style={styles.incidentValue}>{incidente.title}</Text>

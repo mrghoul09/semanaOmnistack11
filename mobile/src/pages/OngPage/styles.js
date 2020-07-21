@@ -3,79 +3,101 @@ import Constants from 'expo-constants';
 
 export default StyleSheet.create({
     container: {
-        minHeight: 64,
-        flex: 1,
-        backgroundColor: '#f2f2f2',
-        flexDirection: 'row',
-        
-    
-    },
-
-    containerbottom: {
-        minHeight: 60,
-        flex: 1,
-        backgroundColor: '#f2f2f2',
-        flexDirection: 'row',
-        
-    
-    },
-
-    casos: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        textAlign:'center',
+        flex: 1,  
     },
 
     header: {
         minHeight: 80,
         backgroundColor: '#E02041',
         flexDirection: 'row',
-        justifyContent:'center',
-        alignContent: 'center',
+        flex: 1,
+    },
+
+    Touchableemail: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        flex: 1,
+        maxWidth: '50%',
+        backgroundColor: '#FFF',
+        marginRight: '7%',
+        minHeight: '80%',
+        borderRadius: 8,
+        maxHeight: '84%',
+        
+    },
+
+
+    Touchablewhats: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginLeft: '7%',
+        marginRight: '4%',
+        minWidth: '39%',
+        maxHeight: '84%',
+        backgroundColor: '#FFF',
+        borderRadius: 8,
+    },
+
+    containera: {
+        minHeight: 80,
+        flex: 1,
+        backgroundColor: '#f2f2f2', 
+        justifyContent: 'center',
+    
+    },
+
+    containerb: {
+        minHeight: 75,
+        flex: 1,
+        backgroundColor: '#f2f2f2',
+        flexDirection: 'row', 
+        
+        
+    
     },
 
     map: {
         maxWidth: 30,
         maxHeight: 35,
-        marginTop: '5%',
-        marginLeft: '32.5%',
+        marginTop: '2%',
+        alignSelf: 'center',
         
     },
 
     whats: {
         maxWidth: 26,
         maxHeight: 34,
-        marginLeft: '14%',
+        marginTop: '-4%',
+        
     },
 
     email: {
+        
         maxWidth: 30,
         maxHeight: 20,
+        marginTop: '-4%',
     },
 
     endereco: {
-        marginTop: '8%',
-        flex: 1,
-        marginLeft: 5,
-        fontSize: 14,
+        alignSelf: 'center',
+        marginTop: '1%',
+        marginBottom: '1%',
     },
 
     whatsapp: {
+        marginBottom: 0,
         fontSize: 11,
     },
 
     emails: {
-        marginLeft: 5,
+        marginTop: '5%',
+        marginLeft: 0,
         fontSize: 11,
-    },
-
-    back: {
+        textAlign: 'center',
         
-        marginLeft: 13,
-        marginTop: Constants.statusBarHeight + 18,
-        maxWidth: 17,
     },
-
 
     ongTitle: {
         fontWeight: 'bold',
@@ -84,48 +106,49 @@ export default StyleSheet.create({
         color: '#FFF',
         flex: 1,
         textAlign: 'center',
-        marginRight: 30,
-    },
-
-    Touchableemail: {
-        flexDirection: 'row',
-        flex: 1,
-        alignItems: 'center',
-        marginLeft: '5%',
-    },
-
-    Touchable: {
-        flexDirection: 'row',
-        flex: 1,
-       
-    },
-
-    Touchablewhats: {
-        alignItems: 'center',
-        textAlign: 'center',
-        flexDirection: 'row',
-        maxWidth: 150,
-        marginLeft: '8%',
+        marginRight: '7.5%',
+        
     },
 
     
+    back: {
+        
+        marginLeft: '3%',
+        marginTop: Constants.statusBarHeight + 18,
+        maxWidth: 17,
+    },
+
+    title: {
+        fontSize: 24,
+        marginBottom: 16,
+        color: '#13131a',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+    description: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: '#737380'
+    },
+
     incidentList: {
-        marginTop: 0,
+        marginTop: 32,
+        
     },
 
     incident: {
-        padding: 25,
+        padding: 24,
         borderRadius: 8,
         backgroundColor: '#FFF',
-        marginVertical: 8,
-        marginHorizontal: 17,
+        marginBottom: 16,
+        marginHorizontal: 24,
      },
 
      incidentProperty: {
          fontSize: 14,
          color: '#41414D',
          fontWeight: 'bold',
-         
      },
 
      incidentValue: {
@@ -138,8 +161,7 @@ export default StyleSheet.create({
      detailsButton: {
          flexDirection: 'row',
          justifyContent: 'space-between',
-         alignItems: 'center',
-         
+         alignItems: 'center'
      },
 
      detailsButtonText: {
